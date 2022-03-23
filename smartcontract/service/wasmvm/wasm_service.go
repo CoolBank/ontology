@@ -20,7 +20,7 @@ package wasmvm
 import (
 	"sync"
 
-	"github.com/hashicorp/golang-lru"
+	lru "github.com/hashicorp/golang-lru"
 	"github.com/ontio/ontology/common"
 	"github.com/ontio/ontology/common/config"
 	"github.com/ontio/ontology/core/store"
@@ -151,11 +151,11 @@ func (this *WasmVmService) Invoke() (interface{}, error) {
 	this.ContextRef.PushContext(&context.Context{ContractAddress: contract.Address, Code: wasmCode})
 
 	var output []byte
-	if this.JitMode {
-		output, err = invokeJit(this, contract, wasmCode)
-	} else {
-		output, err = invokeInterpreter(this, contract, wasmCode)
-	}
+	// if this.JitMode {
+	// 	output, err = invokeJit(this, contract, wasmCode)
+	// } else {
+	output, err = invokeInterpreter(this, contract, wasmCode)
+	// }
 
 	if err != nil {
 		return nil, err

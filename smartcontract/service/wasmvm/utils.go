@@ -110,7 +110,6 @@ func ReadWasmModule(code []byte, verify config.VerifyMethod) (*exec.CompiledModu
 				return nil, err
 			}
 		case config.JitVerifyMethod:
-			err := WasmjitValidate(code)
 			if err != nil {
 				return nil, err
 			}

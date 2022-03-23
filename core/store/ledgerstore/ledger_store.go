@@ -22,9 +22,6 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"fmt"
-	"github.com/ontio/ontology/merkle"
-	"github.com/ontio/ontology/smartcontract/service/native/utils"
-	types2 "github.com/ontio/ontology/vm/neovm/types"
 	"hash"
 	"math"
 	"os"
@@ -33,11 +30,15 @@ import (
 	"sync"
 	"time"
 
+	"github.com/ontio/ontology/merkle"
+	"github.com/ontio/ontology/smartcontract/service/native/utils"
+	types2 "github.com/ontio/ontology/vm/neovm/types"
+
 	"github.com/ontio/ontology-crypto/keypair"
 	"github.com/ontio/ontology/common"
 	"github.com/ontio/ontology/common/config"
 	"github.com/ontio/ontology/common/log"
-	"github.com/ontio/ontology/consensus/vbft/config"
+	vconfig "github.com/ontio/ontology/consensus/vbft/config"
 	"github.com/ontio/ontology/core/payload"
 	"github.com/ontio/ontology/core/signature"
 	"github.com/ontio/ontology/core/states"
@@ -51,7 +52,6 @@ import (
 	"github.com/ontio/ontology/smartcontract"
 	"github.com/ontio/ontology/smartcontract/event"
 	"github.com/ontio/ontology/smartcontract/service/neovm"
-	"github.com/ontio/ontology/smartcontract/service/wasmvm"
 	sstate "github.com/ontio/ontology/smartcontract/states"
 	"github.com/ontio/ontology/smartcontract/storage"
 )
@@ -1220,11 +1220,11 @@ func (this *LedgerStoreImp) PreExecuteContractWithParam(tx *types.Transaction, p
 		deploy := tx.Payload.(*payload.DeployCode)
 
 		if deploy.VmType() == payload.WASMVM_TYPE {
-			wasmCode := deploy.GetRawCode()
-			err := wasmvm.WasmjitValidate(wasmCode)
-			if err != nil {
-				return stf, err
-			}
+			// wasmCode := deploy.GetRawCode()
+			// err := wasmvm.WasmjitValidate(wasmCode)
+			// if err != nil {
+			// 	return stf, err
+			// }
 		} else {
 			wasmMagicversion := []byte{0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00}
 

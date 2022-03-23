@@ -19,7 +19,6 @@
 package p2pserver
 
 import (
-	"math"
 	"sort"
 	"sync"
 	"time"
@@ -29,7 +28,7 @@ import (
 	"github.com/ontio/ontology/core/ledger"
 	"github.com/ontio/ontology/core/types"
 	p2pComm "github.com/ontio/ontology/p2pserver/common"
-	"github.com/ontio/ontology/p2pserver/message/msg_pack"
+	msgpack "github.com/ontio/ontology/p2pserver/message/msg_pack"
 	"github.com/ontio/ontology/p2pserver/peer"
 )
 
@@ -887,7 +886,7 @@ func (this *BlockSyncMgr) getNextNode(nextBlockHeight uint32) *peer.Peer {
 }
 
 func (this *BlockSyncMgr) getNodeWithMinFailedTimes(flightInfo *SyncFlightInfo, curBlockHeight uint32) *peer.Peer {
-	var minFailedTimes = math.MaxInt64
+	var minFailedTimes = 3
 	var minFailedTimesNode *peer.Peer
 	triedNode := make(map[uint64]bool, 0)
 	for {
